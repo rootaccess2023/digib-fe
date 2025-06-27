@@ -2,10 +2,20 @@ import { Link } from "react-router"
 
 function Navbar() {
     return (
-        <nav>
-            <Link to="/">Home</Link>
-            <Link to="/signup">Register</Link>
-            <Link to="/login">Login</Link>
+        <nav className="sticky top-0 z-50 bg-white-shadow">
+            <div className="container mx-auto flex items-center justify-between px-4 py-4">
+                <ul className="flex gap-2.5">
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/signup">Register</Link>
+                    </li>
+                    <li>
+                        <Link to="/login">Login</Link>
+                    </li>
+                </ul>
+            </div>
         </nav>
     )
 }
