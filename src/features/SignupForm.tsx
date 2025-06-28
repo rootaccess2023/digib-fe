@@ -3,9 +3,10 @@ import { useState } from "react";
 function SignupForm() {
 
     const [formData, setFormData] = useState({
-        username: "",
+        // username: "",
         email: "",
         password: "",
+        password_confirmation: "",
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,9 +22,10 @@ function SignupForm() {
         e.preventDefault();
         //enter logic for submitting to API endpoint
         setFormData({
-            username: "",
+            // username: "",
             email: "",
             password: "",
+            password_confirmation: "",
         });
         console.log("Successfully submitted.")
         console.log(formData);
@@ -35,7 +37,7 @@ function SignupForm() {
         <section className="container mx-auto">
             <form onSubmit={handleSubmit} className="flex flex-col items-center gap-2.5">
                 <div className="flex flex-col gap-2">
-                    <label>Username:</label>
+                    {/* <label>Username:</label>
                     <input type="text"
                            name="username" 
                            value={formData.username} 
@@ -43,7 +45,7 @@ function SignupForm() {
                            required 
                            placeholder="Enter your username"
                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
-                            />
+                            /> */}
                     <label>Email:</label>
                     <input type="email" 
                            name="email" 
@@ -60,6 +62,15 @@ function SignupForm() {
                            onChange={handleChange} 
                            required 
                            placeholder="Set your password"
+                           className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                            />
+                            <label> Password Confirmation:</label>
+                    <input type="password" 
+                           name="password_confirmation" 
+                           value={formData.password_confirmation} 
+                           onChange={handleChange} 
+                           required 
+                           placeholder="Confirm your password"
                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
                             />
                 </div>
