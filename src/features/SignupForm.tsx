@@ -2,6 +2,37 @@ import { useState } from "react";
 
 function SignupForm() {
 
+    function extractCsrfTokenFromHtml(html: string): string | null {
+        // Create a DOM parser
+        const parser = new DOMParser();
+      
+        // Parse the HTML string into a Document
+        const doc = parser.parseFromString(html, 'text/html');
+      
+        // Query the meta tag with name="csrf-token"
+        const meta = doc.querySelector('meta[name="csrf-token"]');
+      
+        // Return the content attribute or null if not found
+        return meta?.getAttribute('content') ?? null;
+      }
+      
+    const fetchToken = async () => {
+        try {
+            const response = await fetch("http://localhost:3000/users/sign_up", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+            // const responseData = await response.json();
+            const html = await response.text();
+            const csrf = extractCsrfTokenFromHtml(html);
+            console.log(csrf);
+        } catch (error) {
+            console.error("Unable to fetch CSRF Token: ", error)
+        }
+    }
+
     const [formData, setFormData] = useState({
         // username: "",
         email: "",
@@ -21,6 +52,7 @@ function SignupForm() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //enter logic for submitting to API endpoint
+        fetchToken();
         setFormData({
             // username: "",
             email: "",
