@@ -20,6 +20,7 @@ function SignupForm() {
         try {
             const response = await fetch("http://localhost:3000/users/sign_up", {
                 method: "GET",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 }
@@ -27,7 +28,7 @@ function SignupForm() {
             // const responseData = await response.json();
             const html = await response.text();
             const csrf = extractCsrfTokenFromHtml(html);
-            console.log(csrf);
+            return csrf;
         } catch (error) {
             console.error("Unable to fetch CSRF Token: ", error)
         }
@@ -49,10 +50,40 @@ function SignupForm() {
         }))
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //enter logic for submitting to API endpoint
-        fetchToken();
+        try {
+            const csrfToken = await fetchToken();
+
+            if(!csrfToken) {
+                console.error("Failed to fetch CSRF token.")
+                return;
+            }
+
+            const response = await fetch("http://localhost:3000/users", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": csrfToken,
+                },
+                body: JSON.stringify({user: formData}),
+            })
+
+            if (!response.ok) {
+                const errorData = response.json().catch(() => null)
+                console.error("Failed to register new user:", errorData || response.statusText);
+                return;
+            }
+
+            const responseData = await response.json();
+            console.log("Successfully created new user:", responseData);
+
+
+        } catch (error) {
+            console.error("Error with creating a new user:", error);
+        }
         setFormData({
             // username: "",
             email: "",
