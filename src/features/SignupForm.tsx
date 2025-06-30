@@ -1,45 +1,15 @@
 import { useState } from "react";
+import { useCSRF } from "../contexts/CSRFContext";
 
 function SignupForm() {
 
-    function extractCsrfTokenFromHtml(html: string): string | null {
-        // Create a DOM parser
-        const parser = new DOMParser();
-      
-        // Parse the HTML string into a Document
-        const doc = parser.parseFromString(html, 'text/html');
-      
-        // Query the meta tag with name="csrf-token"
-        const meta = doc.querySelector('meta[name="csrf-token"]');
-      
-        // Return the content attribute or null if not found
-        return meta?.getAttribute('content') ?? null;
-      }
-      
-    const fetchToken = async () => {
-        try {
-            const response = await fetch("http://localhost:3000/users/sign_up", {
-                method: "GET",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            })
-            // const responseData = await response.json();
-            const html = await response.text();
-            const csrf = extractCsrfTokenFromHtml(html);
-            return csrf;
-        } catch (error) {
-            console.error("Unable to fetch CSRF Token: ", error)
-        }
-    }
-
     const [formData, setFormData] = useState({
-        // username: "",
         email: "",
         password: "",
         password_confirmation: "",
     });
+
+    const {csrfToken} = useCSRF();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -52,14 +22,8 @@ function SignupForm() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        //enter logic for submitting to API endpoint
+        
         try {
-            const csrfToken = await fetchToken();
-
-            if(!csrfToken) {
-                console.error("Failed to fetch CSRF token.")
-                return;
-            }
 
             const response = await fetch("http://localhost:3000/users", {
                 method: "POST",
@@ -77,15 +41,11 @@ function SignupForm() {
                 return;
             }
 
-            const responseData = await response.json();
-            console.log("Successfully created new user:", responseData);
-
 
         } catch (error) {
             console.error("Error with creating a new user:", error);
         }
         setFormData({
-            // username: "",
             email: "",
             password: "",
             password_confirmation: "",
