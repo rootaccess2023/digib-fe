@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useCSRF } from "../contexts/CSRFContext";
 
 function LoginForm() {
-     const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({
             email: "",
             password: "",
         });
+    
+    const {csrfToken} = useCSRF();
     
         const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             const {name, value} = e.target;
@@ -15,9 +18,35 @@ function LoginForm() {
             }))
         }
     
-        const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             //enter logic for submitting to API endpoint
+
+            try {
+                const response = await fetch("http://localhost:3000/users/sign_in", {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type" : "application/json",
+                        "X-CSRF-Token": csrfToken,
+                    },
+                    body: JSON.stringify({user: formData}),
+                })
+
+                if (!response.ok) {
+                    const errorData = response.json().catch(() => null)
+                    console.error("Failed to authenticate user:", errorData || response.statusText);
+                    return;
+                }
+
+                const responseData = response.json();
+
+                console.log(responseData);
+
+            } catch (error) {
+                console.error("Failed to send POST request: ", error);
+            }
+
             setFormData({
                 email: "",
                 password: "",
