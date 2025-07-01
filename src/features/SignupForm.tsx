@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCSRF } from "../contexts/CSRFContext";
+// import { useCSRF } from "../contexts/CSRFContext";
 
 function SignupForm() {
 
@@ -9,7 +9,7 @@ function SignupForm() {
         password_confirmation: "",
     });
 
-    const {csrfToken} = useCSRF();
+    // const {csrfToken} = useCSRF();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -25,12 +25,12 @@ function SignupForm() {
         
         try {
 
-            const response = await fetch("http://localhost:3000/users", {
+            const response = await fetch("http://localhost:3000/api/v1/signup", {
                 method: "POST",
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
-                    "X-CSRF-Token": csrfToken,
+                    // "X-CSRF-Token": csrfToken,
                 },
                 body: JSON.stringify({user: formData}),
             })
@@ -40,6 +40,9 @@ function SignupForm() {
                 console.error("Failed to register new user:", errorData || response.statusText);
                 return;
             }
+
+            const responseData = response.json();
+            console.log(responseData);
 
 
         } catch (error) {
@@ -60,15 +63,6 @@ function SignupForm() {
         <section className="container mx-auto">
             <form onSubmit={handleSubmit} className="flex flex-col items-center gap-2.5">
                 <div className="flex flex-col gap-2">
-                    {/* <label>Username:</label>
-                    <input type="text"
-                           name="username" 
-                           value={formData.username} 
-                           onChange={handleChange} 
-                           required 
-                           placeholder="Enter your username"
-                           className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
-                            /> */}
                     <label>Email:</label>
                     <input type="email" 
                            name="email" 
