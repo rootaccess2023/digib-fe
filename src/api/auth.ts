@@ -11,13 +11,19 @@ export async function login(
   });
 }
 
-export async function signup(email: string, 
-    password: string, 
-    password_confirmation: string
-  ): Promise<SignupResponse> {
-  
-  return apiFetch<SignupResponse> ("/api/v1/signup", {
-    method: "POST", 
-    body: JSON.stringify({email, password, password_confirmation}),
+export async function signup(
+  email: string,
+  password: string,
+  password_confirmation: string
+): Promise<SignupResponse> {
+  return apiFetch<SignupResponse>("/api/v1/signup", {
+    method: "POST",
+    body: JSON.stringify({
+      user: {
+        email,
+        password,
+        password_confirmation,
+      },
+    }),
   });
 }
