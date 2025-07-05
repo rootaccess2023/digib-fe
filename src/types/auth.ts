@@ -14,3 +14,7 @@ export interface SignupResponse {
   },
   token: string,
 }
+
+export interface LogoutResponse {
+  message: string,
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { login } from "../api/auth";
 import { useNavigate } from "react-router-dom";
+import { useUser, useToken } from "../contexts/AuthProviderContext";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -10,6 +11,8 @@ function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const {user,setUser} = useUser();
+  const {token,setToken} = useToken();
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +26,13 @@ function LoginForm() {
     setSuccess(null);
     setLoading(true);
     try {
-      await login(formData.email, formData.password);
+      const response = await login(formData.email, formData.password);
+      if (!response) {
+        setError("Failed to return login response.")
+      }
+      setUser(response.user)
+      setToken({token: response.token})
+
       setSuccess("Login successful!");
       setFormData({ email: "", password: "" });
       // Redirect to dashboard after successful login
