@@ -1,4 +1,21 @@
+import { useNavigate } from "react-router";
+import { useEffect } from "react";
+import { useUser, useToken } from "../contexts/AuthProviderContext";
+
 export default function Dashboard() {
+  // imported user and token just to test if login works
+  const {user} = useUser();
+  const {token} = useToken();
+  const navigate = useNavigate();
+  console.log("after login: ",user, token )
+
+
+  useEffect(() => {
+    if(!token) {
+      navigate("/login")
+    }
+  }, [])
+  
   return (
     <div className="container mx-auto mt-8">
       <h1 className="text-3xl font-bold">Welcome to your dashboard!</h1>
