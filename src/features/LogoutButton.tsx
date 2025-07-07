@@ -7,7 +7,7 @@ import { useToken } from "../contexts/AuthProviderContext";
 const LogoutButton = () => {
     const navigate = useNavigate();
     // const {user} = useUser();
-    const {token} = useToken();
+    const {token, setToken} = useToken();
 
     const handleLogout = async () => {
         try {
@@ -16,15 +16,17 @@ const LogoutButton = () => {
         } catch (error) {
             console.error("Failed to log out: ", error)
         }
+        setToken(null);
         navigate("/");
     }
 
     return (
-        <div>
+        token ? (<div>
             <button onClick={handleLogout}>
                 Log out
             </button>
-        </div>
+        </div>) : null
+        
     )
 }
 

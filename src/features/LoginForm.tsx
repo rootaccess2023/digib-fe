@@ -11,8 +11,8 @@ function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const {user,setUser} = useUser();
-  const {token,setToken} = useToken();
+  const {setUser} = useUser();
+  const {setToken} = useToken();
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
