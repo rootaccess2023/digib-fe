@@ -1,4 +1,5 @@
 import { Link } from "react-router"
+import LogoutButton from "../features/LogoutButton";
 
 function Navbar() {
     return (
@@ -15,6 +16,7 @@ function Navbar() {
                         <Link to="/login">Login</Link>
                     </li>
                 </ul>
+                <LogoutButton/>
             </div>
         </nav>
     )
