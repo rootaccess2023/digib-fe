@@ -2,6 +2,7 @@ import { useState } from "react";
 import { login } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 import { useUser, useToken } from "../contexts/AuthProviderContext";
+import toast from "react-hot-toast";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ function LoginForm() {
   const {setUser} = useUser();
   const {setToken} = useToken();
   const navigate = useNavigate();
+  const successMessage = "Login Successful.";
+  const errorMessage = "Failed to log in";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,17 +31,20 @@ function LoginForm() {
     try {
       const response = await login(formData.email, formData.password);
       if (!response) {
-        setError("Failed to return login response.")
+        setError(errorMessage)
+        toast.error(errorMessage);
       }
       setUser(response.user)
       setToken({token: response.token})
 
-      setSuccess("Login successful!");
+      setSuccess(successMessage);
+      toast.success(successMessage);
       setFormData({ email: "", password: "" });
       // Redirect to dashboard after successful login
       navigate("/dashboard");
     } catch (err: any) {
-      setError(err.message || "Login failed");
+      setError(err.message || errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { signup } from "../api";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 // import { useCSRF } from "../contexts/CSRFContext";
 
 function SignupForm() {
@@ -14,6 +15,8 @@ function SignupForm() {
     const [success, setSuccess] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const successMessage = "Sign up was successful.";
+    const errorMessage = "Failed to sign up a new account.";
 
     // const {csrfToken} = useCSRF();
 
@@ -37,13 +40,15 @@ function SignupForm() {
         try {
 
             await signup(email, password, password_confirmation)
-            setSuccess("Sign up successful!");
+            setSuccess(successMessage);
+            toast.success(successMessage);
             setFormData({ email: "", password: "", password_confirmation: "",});
             navigate("/login");
 
 
         } catch (error: any) {
             setError(error.message || "Sign up failed");
+            toast.error(errorMessage)
         } finally {
             setLoading(false);
         }
