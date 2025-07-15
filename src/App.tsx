@@ -1,15 +1,21 @@
 import "./App.css";
 import { BrowserRouter as Router } from "react-router";
-import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import useAuth from "./contexts/useAuth";
 import AppRoutes from "./components/AppRoutes";
 import { Toaster } from "react-hot-toast";
 
 function App() {
+  const { user } = useAuth();
   return (
     <>
       <Router>
-        <Navbar />
-        <AppRoutes />
+        <div className="flex min-h-screen">
+          {user && <Sidebar />}
+          <main className="flex-1">
+            <AppRoutes />
+          </main>
+        </div>
         <Toaster />
       </Router>
     </>

@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+:root {
+  --primary-color: #ecf6fc;
+  --secondary-color: #e9f0e3;
+  --green-color: #a8c48f;
+}
+
+body {
+  font-family: "Barlow", sans-serif;
+}
+
+/* BACKGROUND COLORS */
+
+.ui-bg {
+  &.--primary {
+    background-color: var(--primary-color);
+  }
+  &.--secondary {
+    background-color: var(--secondary-color);
+  }
+  &.--green {
+    background-color: var(--green-color);
+  }
+}
