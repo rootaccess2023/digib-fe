@@ -4,6 +4,7 @@
   --primary-color: #ecf6fc;
   --secondary-color: #e9f0e3;
   --green-color: #a8c48f;
+  --olive-color: #beb989;
 }
 
 body {
@@ -21,5 +22,8 @@ body {
   }
   &.--green {
     background-color: var(--green-color);
+  }
+  &.--olive {
+    background-color: var(--olive-color);
   }
 }
