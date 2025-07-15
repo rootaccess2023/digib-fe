@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { login } from "../api/auth";
+import { login as apiLogin } from "../api/auth";
 import { useNavigate } from "react-router-dom";
-import { useUser, useToken } from "../contexts/AuthProviderContext";
+import useAuth from "../contexts/useAuth";
 import toast from "react-hot-toast";
 
 function LoginForm() {
@@ -12,8 +12,7 @@ function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const {setUser} = useUser();
-  const {setToken} = useToken();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const successMessage = "Login Successful.";
   const errorMessage = "Failed to log in";
@@ -29,21 +28,24 @@ function LoginForm() {
     setSuccess(null);
     setLoading(true);
     try {
-      const response = await login(formData.email, formData.password);
+      const response = await apiLogin(formData.email, formData.password);
       if (!response) {
         setError(errorMessage)
         toast.error(errorMessage);
+        return;
       }
-      setUser(response.user)
-      setToken({token: response.token})
-
+      login(response.user, { token: response.token });
       setSuccess(successMessage);
       toast.success(successMessage);
       setFormData({ email: "", password: "" });
       // Redirect to dashboard after successful login
       navigate("/dashboard");
-    } catch (err: any) {
-      setError(err.message || errorMessage);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || errorMessage);
+      } else {
+        setError(errorMessage);
+      }
       toast.error(errorMessage);
     } finally {
       setLoading(false);

@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-import { useUser, useToken } from "../contexts/AuthProviderContext";
+import useAuth from "../contexts/useAuth";
 
 export default function Dashboard() {
   // imported user and token just to test if login works
-  const {user} = useUser();
-  const {token} = useToken();
+  const { user, token } = useAuth();
   const navigate = useNavigate();
-  console.log("after login: ",user, token )
+  console.log("after login: ", user, token );
 
 
   useEffect(() => {
