@@ -22,42 +22,29 @@ export default function Dashboard() {
       </div>
 
       <section className="space-y-6">
-        <div className="bg-white p-4 rounded">
-          <h2 className="text-sm font-medium text-gray-700 mb-3 uppercase tracking-wide">
-            Overview
-          </h2>
-          <div className="text-lg text-gray-700 mb-2">
-            Welcome to your Barangay's digital hub.
-          </div>
-          <div className="text-base text-gray-600">
-            You are now logged in. Here you can request documents, track your
-            requests, and manage your account—all online.
-          </div>
-        </div>
-
         <ul className="flex justify-between gap-8">
           <li className="w-full flex items-center h-18 bg-white rounded text-2xl font-bold shadow group cursor-pointer">
             <span className="flex flex-1 items-center px-6 h-full group-hover:bg-[var(--olive-color)] rounded-tl rounded-bl">
               Request Document
             </span>
-            <span className="h-full flex items-center bg-white px-4 rounded-tr rounded-br">
-              <FaArrowRight className="size-4" />
+            <span className="h-full w-18 flex items-center justify-center bg-white rounded-tr rounded-br">
+              <FaArrowRight className="size-4 text-[var(--olive-color)]" />
             </span>
           </li>
           <li className="w-full flex items-center h-18 bg-white rounded text-2xl font-bold shadow group cursor-pointer">
             <span className="flex flex-1 items-center px-6 h-full group-hover:bg-[var(--olive-color)] rounded-tl rounded-bl">
               Request Document
             </span>
-            <span className="h-full flex items-center bg-white px-4 rounded-tr rounded-br">
-              <FaArrowRight className="size-4" />
+            <span className="h-full w-18 flex items-center justify-center bg-white rounded-tr rounded-br">
+              <FaArrowRight className="size-4 text-[var(--olive-color)]" />
             </span>
           </li>
           <li className="w-full flex items-center h-18 bg-white rounded text-2xl font-bold shadow group cursor-pointer">
             <span className="flex flex-1 items-center px-6 h-full group-hover:bg-[var(--olive-color)] rounded-tl rounded-bl">
               Request Document
             </span>
-            <span className="h-full flex items-center bg-white px-4 rounded-tr rounded-br">
-              <FaArrowRight className="size-4" />
+            <span className="h-full w-18 flex items-center justify-center bg-white rounded-tr rounded-br">
+              <FaArrowRight className="size-4 text-[var(--olive-color)]" />
             </span>
           </li>
         </ul>
