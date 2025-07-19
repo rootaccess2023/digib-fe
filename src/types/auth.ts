@@ -7,14 +7,14 @@ export interface LoginResponse {
 }
 
 export interface SignupResponse {
-  message: string,
+  message: string;
   user: {
     id: number;
     email: string;
-  },
-  token: string,
+  };
+  token: string;
 }
 
 export interface LogoutResponse {
-  message: string,
+  message: string;
 }
