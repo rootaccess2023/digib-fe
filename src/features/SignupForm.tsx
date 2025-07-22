@@ -12,6 +12,12 @@ function SignupForm() {
         first_name: "",
         last_name: "",
         middle_name: "",
+        suffix: "",
+        date_of_birth: "",
+        place_of_birth: "",
+        gender:"",
+        civil_status: "",
+        nationality: "Filipino",
     });
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
@@ -49,6 +55,12 @@ function SignupForm() {
                 first_name:"",
                 last_name: "",
                 middle_name: "",
+                suffix: "",
+                date_of_birth: "",
+                place_of_birth: "",
+                gender:"",
+                civil_status: "",
+                nationality: "Filipino",
             });
             navigate("/login");
 
@@ -85,7 +97,7 @@ function SignupForm() {
                            required 
                            placeholder="First Name"
                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
-                           autoComplete="email"
+                           autoComplete="given-name"
                            disabled={loading}
                             />
                     <label htmlFor="middle_name" className="font-medium">Middle Name:</label>
@@ -96,9 +108,9 @@ function SignupForm() {
                            value={formData.middle_name} 
                            onChange={handleChange} 
                            required 
-                           placeholder="First Name"
+                           placeholder="Middle Name"
                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
-                           autoComplete="email"
+                           autoComplete="additional-name"
                            disabled={loading}
                             />
                     <label htmlFor="last_name" className="font-medium">Last Name:</label>
@@ -109,9 +121,87 @@ function SignupForm() {
                            value={formData.last_name} 
                            onChange={handleChange} 
                            required 
-                           placeholder="First Name"
+                           placeholder="Last Name"
                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
-                           autoComplete="email"
+                           autoComplete="family-name"
+                           disabled={loading}
+                            />
+                    <label htmlFor="suffix" className="font-medium">Suffix:</label>
+                    <input 
+                           id="suffix"
+                           type="text" 
+                           name="suffix" 
+                           value={formData.suffix} 
+                           onChange={handleChange} 
+                           required 
+                           placeholder="Suffix"
+                           className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                           autoComplete="honorific-suffix"
+                           disabled={loading}
+                            />
+                    <label htmlFor="date_of_birth" className="font-medium">Date of Birth:</label>
+                    <input 
+                           id="date_of_birth"
+                           type="date" 
+                           name="date_of_birth" 
+                           value={formData.date_of_birth} 
+                           onChange={handleChange} 
+                           required 
+                           placeholder="Date of Birth"
+                           className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                           autoComplete="bday"
+                           disabled={loading}
+                            />
+                    <label htmlFor="place_of_birth" className="font-medium">Place of Birth:</label>
+                    <input 
+                           id="place_of_birth"
+                           type="text" 
+                           name="place_of_birth" 
+                           value={formData.place_of_birth} 
+                           onChange={handleChange} 
+                           required 
+                           placeholder="Place or City of Birth"
+                           className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                           autoComplete="address-level2"
+                           disabled={loading}
+                            />
+                    <label htmlFor="gender" className="font-medium">Gender:</label>
+                    <input 
+                           id="gender"
+                           type="text" 
+                           name="gender" 
+                           value={formData.gender} 
+                           onChange={handleChange} 
+                           required 
+                           placeholder="Gender"
+                           className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                           autoComplete="sex"
+                           disabled={loading}
+                            />
+                    <label htmlFor="civil_status" className="font-medium">Civil Status:</label>
+                    <input 
+                           id="civil_status"
+                           type="text" 
+                           name="civil_status" 
+                           value={formData.civil_status} 
+                           onChange={handleChange} 
+                           required 
+                           placeholder="Civil Status"
+                           className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                           autoComplete="off"
+                           disabled={loading}
+                            />
+                    <label htmlFor="nationality" className="font-medium">Nationality:</label>
+                    <input 
+                           id="nationality"
+                           type="text" 
+                           name="nationality" 
+                           value={formData.nationality} 
+                           onChange={handleChange} 
+                           required 
+                           placeholder="Nationality"
+                           className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                           autoComplete="country-name"
                            disabled={loading}
                             />
                     <label htmlFor="email" className="font-medium">Email:</label>
