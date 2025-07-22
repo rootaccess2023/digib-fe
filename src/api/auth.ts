@@ -14,7 +14,10 @@ export async function login(
 export async function signup(
   email: string,
   password: string,
-  password_confirmation: string
+  password_confirmation: string,
+  first_name: string,
+  last_name: string,
+  middle_name?: string,
 ): Promise<SignupResponse> {
   return apiFetch<SignupResponse>("/api/v1/signup", {
     method: "POST",
@@ -23,6 +26,9 @@ export async function signup(
         email,
         password,
         password_confirmation,
+        first_name,
+        middle_name,
+        last_name,
       },
     }),
   });
