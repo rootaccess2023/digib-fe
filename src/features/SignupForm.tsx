@@ -2,10 +2,11 @@ import { useState } from "react";
 import { signup } from "../api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import type { FormData } from "../types/auth";
 
 function SignupForm() {
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormData>({
         email: "",
         password: "",
         password_confirmation: "",
@@ -13,7 +14,7 @@ function SignupForm() {
         last_name: "",
         middle_name: "",
         suffix: "",
-        date_of_birth: "",
+        date_of_birth: new Date(),
         place_of_birth: "",
         gender:"",
         civil_status: "",
@@ -26,12 +27,15 @@ function SignupForm() {
     const successMessage = "Sign up was successful.";
     const errorMessage = "Failed to sign up a new account.";
 
+    //move to helpers
+    const formatDateForInput = (date: Date) => date.toISOString().split('T')[0];
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === "date_of_birth"? new Date(value) : value,
     }));
   };
 
@@ -41,11 +45,36 @@ function SignupForm() {
     setSuccess(null);
     setLoading(true);
 
-        const {email, password, password_confirmation, first_name, last_name, middle_name} = formData
+        const {
+            email,
+            password, 
+            password_confirmation, 
+            first_name, last_name, 
+            middle_name, 
+            suffix,
+            date_of_birth,
+            place_of_birth,
+            gender,
+            civil_status,
+            nationality,
+         } = formData
         
         try {
 
-            await signup(email, password, password_confirmation, first_name, last_name, middle_name)
+            await signup(
+                email, 
+                password, 
+                password_confirmation, 
+                first_name, 
+                last_name,
+                date_of_birth,
+                place_of_birth,
+                gender,
+                civil_status,
+                nationality, 
+                middle_name,
+                suffix,
+            )
             setSuccess(successMessage);
             toast.success(successMessage);
             setFormData({ 
@@ -56,7 +85,7 @@ function SignupForm() {
                 last_name: "",
                 middle_name: "",
                 suffix: "",
-                date_of_birth: "",
+                date_of_birth: new Date(),
                 place_of_birth: "",
                 gender:"",
                 civil_status: "",
@@ -132,8 +161,7 @@ function SignupForm() {
                            type="text" 
                            name="suffix" 
                            value={formData.suffix} 
-                           onChange={handleChange} 
-                           required 
+                           onChange={handleChange}  
                            placeholder="Suffix"
                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
                            autoComplete="honorific-suffix"
@@ -144,7 +172,7 @@ function SignupForm() {
                            id="date_of_birth"
                            type="date" 
                            name="date_of_birth" 
-                           value={formData.date_of_birth} 
+                           value={formatDateForInput(formData.date_of_birth)} 
                            onChange={handleChange} 
                            required 
                            placeholder="Date of Birth"
@@ -175,7 +203,7 @@ function SignupForm() {
                            required 
                            placeholder="Gender"
                            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
-                           autoComplete="sex"
+                           autoComplete="off"
                            disabled={loading}
                             />
                     <label htmlFor="civil_status" className="font-medium">Civil Status:</label>
@@ -230,7 +258,7 @@ function SignupForm() {
                            autoComplete="new-password"
                            disabled={loading}
                             />
-                            <label> Password Confirmation:</label>
+                    <label htmlFor="password_confirmation" className="font-medium"> Password Confirmation:</label>
                     <input 
                            id="password_confirmation"
                            type="password" 
