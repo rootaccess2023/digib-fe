@@ -34,7 +34,7 @@ const Profile = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <dt className="text-sm text-gray-600">Full Name</dt>
-                <dd className="text-base  font-medium">Juan Dela Cruz</dd>
+                <dd className="text-base  font-medium">{`${user.first_name} ${user.middle_name} ${user.last_name}`}</dd>
               </div>
               <div>
                 <dt className="text-sm text-gray-600">Date of Birth</dt>
