@@ -20,8 +20,6 @@ function SignupForm() {
     const successMessage = "Sign up was successful.";
     const errorMessage = "Failed to sign up a new account.";
 
-    // const {csrfToken} = useCSRF();
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
