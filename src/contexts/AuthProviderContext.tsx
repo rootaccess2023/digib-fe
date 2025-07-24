@@ -13,6 +13,7 @@ interface User {
   gender?: string;
   civil_status?: string;
   nationality?: string;
+  phone?: string;
   created_at?: Date;
 }
 

@@ -31,5 +31,6 @@ export interface FormData {
   place_of_birth: string;
   gender: string;
   civil_status: string;
+  phone: string;
   nationality: string;
 }

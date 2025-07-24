@@ -19,6 +19,7 @@ function SignupForm() {
         place_of_birth: "",
         gender:"",
         civil_status: "",
+        phone:"",
         nationality: "Filipino",
     });
     const [error, setError] = useState<string | null>(null);
@@ -58,6 +59,7 @@ function SignupForm() {
             gender,
             civil_status,
             nationality,
+            phone
          } = formData
         
         try {
@@ -75,6 +77,7 @@ function SignupForm() {
                 nationality, 
                 middle_name,
                 suffix,
+                phone,
             )
             setSuccess(successMessage);
             toast.success(successMessage);
@@ -91,6 +94,7 @@ function SignupForm() {
                 gender:"",
                 civil_status: "",
                 nationality: "Filipino",
+                phone:""
             });
             navigate("/login");
 
@@ -194,6 +198,19 @@ function SignupForm() {
                            autoComplete="address-level2"
                            disabled={loading}
                             />
+                    <label htmlFor="phone" className="font-medium">Mobile Number:</label>
+                    <input 
+                           id="phone"
+                           type="tel" 
+                           name="phone" 
+                           value={formData.phone} 
+                           onChange={handleChange} 
+                           required 
+                           placeholder="Philippine Cellphone/Mobile number"
+                           className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                           autoComplete="tel"
+                           disabled={loading}
+                            />        
                     <label htmlFor="gender" className="font-medium">Gender:</label>
                     <input 
                            id="gender"

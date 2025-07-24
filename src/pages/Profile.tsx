@@ -10,7 +10,6 @@ const Profile = () => {
     month: "long",
     day: "numeric",
   }) : null;
-  console.log(birthDate);
 
   return (
     <div className="h-full ui-bg --primary mx-auto p-8 bg-white">
@@ -55,7 +54,7 @@ const Profile = () => {
               </div>
               <div>
                 <dt className="text-sm text-gray-600">Contact Number</dt>
-                <dd className="text-base  font-medium">0917 123 4567</dd>
+                <dd className="text-base  font-medium">{user.phone}</dd>
               </div>
               <div>
                 <dt className="text-sm text-gray-600">Gender</dt>

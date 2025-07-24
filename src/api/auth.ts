@@ -24,6 +24,7 @@ export async function signup(
   nationality: string,
   middle_name?: string,
   suffix?: string,
+  phone?: string,
 ): Promise<SignupResponse> {
   return apiFetch<SignupResponse>("/api/v1/signup", {
     method: "POST",
@@ -41,6 +42,7 @@ export async function signup(
         gender,
         civil_status,
         nationality,
+        phone,
       },
     }),
   });
