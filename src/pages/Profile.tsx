@@ -3,6 +3,15 @@ import useAuth from "../contexts/useAuth";
 const Profile = () => {
   const { user } = useAuth();
 
+  //to display birthdate in words and numbers instead of just numbers
+  const userDateOfBirth = user?.date_of_birth
+  const birthDate = userDateOfBirth? new Date(userDateOfBirth).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }) : null;
+  console.log(birthDate);
+
   return (
     <div className="h-full ui-bg --primary mx-auto p-8 bg-white">
       <div className="border-b border-gray-200 pb-4 mb-6">
@@ -38,15 +47,27 @@ const Profile = () => {
               </div>
               <div>
                 <dt className="text-sm text-gray-600">Date of Birth</dt>
-                <dd className="text-base  font-medium">January 1, 1990</dd>
+                <dd className="text-base  font-medium">{birthDate}</dd>
               </div>
               <div>
                 <dt className="text-sm text-gray-600">Civil Status</dt>
-                <dd className="text-base  font-medium">Single</dd>
+                <dd className="text-base  font-medium">{user.civil_status}</dd>
               </div>
               <div>
                 <dt className="text-sm text-gray-600">Contact Number</dt>
                 <dd className="text-base  font-medium">0917 123 4567</dd>
+              </div>
+              <div>
+                <dt className="text-sm text-gray-600">Gender</dt>
+                <dd className="text-base  font-medium">{user.gender}</dd>
+              </div>
+              <div>
+                <dt className="text-sm text-gray-600">Place of Birth</dt>
+                <dd className="text-base  font-medium">{user.place_of_birth}</dd>
+              </div>
+              <div>
+                <dt className="text-sm text-gray-600">Nationality</dt>
+                <dd className="text-base  font-medium">{user.nationality}</dd>
               </div>
             </div>
           </div>

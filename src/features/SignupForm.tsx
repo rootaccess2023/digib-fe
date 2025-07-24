@@ -3,6 +3,7 @@ import { signup } from "../api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import type { FormData } from "../types/auth";
+import { formatDateForInput } from "../helpers/dateUtils";
 
 function SignupForm() {
 
@@ -28,7 +29,7 @@ function SignupForm() {
     const errorMessage = "Failed to sign up a new account.";
 
     //move to helpers
-    const formatDateForInput = (date: Date) => date.toISOString().split('T')[0];
+    // const formatDateForInput = (date: Date) => date.toISOString().split('T')[0];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

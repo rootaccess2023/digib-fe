@@ -7,6 +7,12 @@ interface User {
   first_name?: string;
   middle_name?: string;
   last_name?: string;
+  suffix?: string;
+  date_of_birth?: string;
+  place_of_birth?: string;
+  gender?: string;
+  civil_status?: string;
+  nationality?: string;
   created_at?: Date;
 }
 
